@@ -2,6 +2,8 @@
 
 ## Webpack
 
+sudo npm install -g webpack
+
 ### Babel
 
 ## Devtools
