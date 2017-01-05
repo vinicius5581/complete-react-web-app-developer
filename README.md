@@ -6,29 +6,118 @@
 npm init
 ```
 
-## Express
+
+## Webpack Global
+
+```sh
+sudo npm install -g webpack@1.12.13
+
+webpack -h
+```
+
+## Dependencies - Run local & in production
+
+### Express
 
 ```sh
 npm install express@4 --save
 ```
 
-## Webpack
+### React & React DOM
 
 ```sh
-sudo npm install -g webpack
+npm install --save react@0.14.7 react-dom@0.14.7
 ```
 
-### Babel
+## DevDependencies - Local dependencies for development only
 
 ```sh
-babeljs.io/repl
+npm install --save-dev webpack@1.12.13 babel-core@6.5.1 babel-loader@6.2.2 babel-preset-es2015@6.5.0 babel-preset-react@6.5.0
 ```
 
 ## Devtools
 
-
 ```sh
 $ npm install karma@0.13.22 karma-chrome-launcher@0.2.2 karma-mocha@0.2.2 karma-mocha-reporter@2.0.0 karma-sourcemap-loader@0.3.7 karma-webpack@1.7.0 mocha@2.4.5 expect@1.14.0 --save-dev
+```
+
+# Webpack Fun :)
+
+```sh
+webpack ./origin ./destination
+
+webpack ./app/app.js ./public/bundle.js
+```
+
+# Module export & Require
+
+```sh
+/* ./app/components/Greeter.js */
+
+function greeter () {
+	document.write('From greeter function');
+}
+
+module.exports = greeter;
+```
+
+```sh
+/* ./app/app.js */
+
+var greeter = require('../public/components/Greeter');
+
+greeter();
+```
+
+# webpack.config.js
+
+## Basics
+```sh
+module.exports = {
+  entry: './public/app.js',
+  output: {
+    path: __dirname,
+    filename: './public/bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
+};
+```
+
+## Run
+```sh
+$ webpack
+```
+
+## Adding loader 'babel-loader' (Should be on package.json)
+module.exports = {
+  entry: './public/app.jsx',
+  output: {
+    path: __dirname,
+    filename: './public/bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  module: {
+    loaders: [
+      {
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015']
+        },
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/
+      }
+    ]
+  }
+};
+
+# Babel
+
+```sh
+babeljs.io/repl
 ```
 
 ## React Components
