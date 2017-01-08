@@ -317,3 +317,81 @@ ReactDom.render(
 
 # Chrome extensions
 - JSONview
+
+
+# SASS
+```
+npm install sass-loader node-sass webpack --save-dev
+```
+
+
+# Automatic Testing
+
+## Assertion Libraries
+https://github.com/mjackson/expect
+
+## Dev Dependencies
+
+```sh
+npm install karma@0.13.22 karma-chrome-launcher@0.2.2 karma-mocha@0.2.2 karma-mocha-reporter@2.0.0 karma-sourcemap-loader@0.3.7 karma-webpack@1.7.0 mocha@2.4.5 expect@1.14.0 --save-dev
+```
+
+## Mocha
+https://mochajs.org
+
+## Karma
+https://karma-runner.github.io
+
+### karma.conf.js
+```sh
+var webpackConfig = require('./webpack.config.js');
+
+modules.exports = function (config){
+  config.set({
+    browsers: ['Chrome'],
+    singleRun: true,
+    frameworks: ['mocha'],
+    files: ['app/tests/**/*.test.jsx'],
+    preprocessors: {
+      'app/tests/**/*.test.jsx': ['webpack', 'sourcemap']
+    },
+    reporters: ['mocha'],
+    client: {
+      mocha: {
+        timeout: '5000'
+      }
+    },
+    webpack: webpackConfig,
+    webpackServer: {
+      noInfo: true
+    }
+  });  
+};
+```
+
+### package.json
+
+{
+...
+  "scripts": {
+    "test": "karma start",
+    "start": "node server.js"
+  },
+...
+}
+
+### Test File Sample
+```sh
+  var expect = require('expect');
+
+  if('Should properly run tests', () => {
+    expect(1).toBe(1);
+  });
+```
+
+### Run Test
+```sh
+$ karma start
+```
+
+
